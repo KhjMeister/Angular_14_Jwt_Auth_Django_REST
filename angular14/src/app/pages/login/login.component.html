@@ -1,0 +1,51 @@
+<div class="container-fluid register-form">
+    <form 
+      *ngIf="!isLoggedIn"
+      needs-validation [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="note">  
+        <h1> Login </h1>  
+      </div>  
+      
+      <div class="mb-4">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" autofocus formControlName="username" id="username" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['username'].errors,
+                     'is-valid': submitted && !f['username'].errors }" 
+        />
+        <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+          <div *ngIf="f['username'].errors['required']">Username is Required</div>
+        </div>
+        <div class="valid-feedback">
+          Correct
+        </div>
+      </div>
+  
+      <div class="mb-4">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" formControlName="password" id="password" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['password'].errors,
+                     'is-valid': submitted && !f['password'].errors }" 
+        />
+        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+          <div *ngIf="f['password'].errors['required']">Password is Required</div>
+        </div>
+        <div class="valid-feedback">
+          Correct
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <button type="submit" class="btn btn-primary">Send</button>
+        <button type="button" (click)="onReset()"
+        class="btn btn-warning float-end">
+          reset
+        </button>
+      </div>
+      <div class="alert alert-warning" *ngIf="isLoginFailed">
+        Signin failed!<br />{{ errorMessage }}
+    </div>
+    </form>
+    <div class="alert alert-success" *ngIf="isLoggedIn">
+      The role of the registrant {{ roles }}.
+    </div>
+  </div>
